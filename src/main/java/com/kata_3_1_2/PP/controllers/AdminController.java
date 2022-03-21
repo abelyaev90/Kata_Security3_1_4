@@ -1,16 +1,15 @@
 package com.kata_3_1_2.PP.controllers;
 
-import com.kata_3_1_2.PP.entitys.Role;
+
 import com.kata_3_1_2.PP.entitys.User;
 import com.kata_3_1_2.PP.service.RoleService;
 import com.kata_3_1_2.PP.service.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Collections;
 import java.util.List;
-import java.util.Set;
 
 @Controller
 @RequestMapping("/admin")
@@ -34,22 +33,30 @@ public class AdminController {
         return "users-list";
     }
 
+
+//*****************************************************************
     @GetMapping("/user-create")
-    public String createUserForm(User user) {
+    public String createUserForm(ModelMap modelMap) {
+        modelMap.addAttribute("user", new User());
         return "user-create";
     }
 
     //изменить
-    @PostMapping("/user-create")
-    public String createUser(User user, String[] roles) {
+    @PostMapping("users")
+    public String createUser(@ModelAttribute("user") User user, String[] roles) {
         userService.addUser(user, roles);
         return "redirect:/users";
     }
 
+
+    //*****************************************************************
+
+
+
     @DeleteMapping("/user-delete/{id}")
     public String deleteUser(@PathVariable("id") Long id) {
         userService.removeUser(id);
-        return "redirect:/users";
+        return "redirect:/admin/users";
     }
 
     @GetMapping("/user-update/{id}")
@@ -61,8 +68,8 @@ public class AdminController {
 
     //изменить как create
     @PostMapping("/user-update")
-    public String updateUser(User user) {
-        userService.updateUser(user);
+    public String updateUser(User user, String[] roles) {
+        userService.updateUser(user, roles);
         return "redirect:/users";
     }
 }

@@ -5,14 +5,38 @@
     <title>Create user</title>
 </head>
 <body>
-<form action="#" th:action="@{/user-create}" th:object="${user}" method="post">
-    <label for="name">Name</label>
-    <input type="text" th:field="*{name}" id="name" placeholder="Name">
-    <label for="lastName">Last Name</label>
+<form th:method="POST" th:action="@{/admin/users}" th:object="${user}">
+    <label for="userName">Name</label>
+    <input type="text" th:field="*{userName}" id="userName" placeholder="Name">
+    <br/>
+    <br/>
+    <label for="userLastName">Last Name</label>
+    <input type="text" th:field="*{userLastName}" id="userLastName" placeholder="lastname">
+    <br/>
+    <br/>
+    <label for="userAge">userAge</label>
+    <input type="number" th:field="*{userAge}" id="userAge" placeholder="userAge">
+    <br/>
+    <br/>
+    <label for="userEmail">userEmail</label>
+    <input type="text" th:field="*{userEmail}" id="userEmail" placeholder="userEmail">
+    <br/>
+    <br/>
+    <label for="userPassword">userPassword</label>
+    <input type="text" th:field="*{userPassword}" id="userPassword" placeholder="userPassword">
+    <br/>
+    <br/>
 
-    <input type="text" th:field="*{lastname}" id="lastname" placeholder="lastname">
-    <label for="numberTelephone">numberTelephone</label>
-    <input type="text" th:field="*{numberTelephone}" id="numberTelephone" placeholder="numberTelephone">
+    <p>
+        <label for="roles">Выберите роль:</label>
+        <select id="roles" name="roles">
+            <option value="ROLE_ADMIN">ROLE_ADMIN</option>
+            <option value="ROLE_USER">ROLE_USER</option>
+        </select>
+    </p>
+
+    <br/>
+
     <input type="submit" value="Create User">
 </form>
 </body>

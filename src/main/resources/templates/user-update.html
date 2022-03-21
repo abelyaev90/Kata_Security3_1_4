@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" >
 <head>
     <meta charset="UTF-8">
     <title>Update user</title>
@@ -9,14 +9,42 @@
     <label for="id">ID</label>
     <input readonly type="number" th:field="*{id}" id="id" placeholder="ID">
     <br/>
-    <label for="name">Name</label>
-    <input type="text" th:field="*{name}" id="name" placeholder="Name">
-    <label for="lastName">Last Name</label>
-    <input type="text" th:field="*{lastname}" id="lastname" placeholder="lastname">
-    <label for="numberTelephone">numberTelephone</label>
-    <input type="text" th:field="*{numberTelephone}" id="numberTelephone" placeholder="numberTelephone">
     <br/>
-    <input type="submit" value="Update User">
+    <label for="userName">First Name</label>
+    <input type="text" th:field="*{userName}" id="userName" placeholder="userName">
+    <br/>
+    <br/>
+    <label for="userLastName">Last Name</label>
+    <input type="text" th:field="*{userLastName}" id="userLastName" placeholder="userLastName">
+    <br/>
+    <br/>
+    <label for="userAge">user Age</label>
+    <input type="number" th:field="*{userAge}" id="userAge" placeholder="userAge">
+    <br/>
+    <br/>
+    <label for="userEmail">user Email</label>
+    <input type="text" th:field="*{userEmail}" id="userEmail" placeholder="userEmail">
+    <br/>
+    <br/>
+    <label for="userPassword">Password</label>
+    <input type="text" th:field="*{userPassword}" id="userPassword" placeholder="userPassword">
+    <br/>
+    <br/>
+    <p>
+        <label for="roles">Role</label>
+        <select id="roles" name="roles">
+            <option value="ROLE_ADMIN">ROLE_ADMIN</option>
+            <option value="ROLE_USER">ROLE_USER</option>
+        </select>
+    </p>
+
+    <br/>
+    <br/>
+
+        <input type="submit"  value="Update User" >
+
+
 </form>
+</tr>
 </body>
 </html>

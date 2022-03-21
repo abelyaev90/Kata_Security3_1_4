@@ -19,7 +19,7 @@ public class UserController {
         this.userService = userService;
     }
 
-    @GetMapping("/user/show")
+    @GetMapping("/show")
     public String showUser(Principal principal, ModelMap modelMap) {
         User userBD = userService.getByName(principal.getName());
         modelMap.addAttribute("user", userBD);

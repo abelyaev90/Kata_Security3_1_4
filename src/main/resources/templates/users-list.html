@@ -18,7 +18,7 @@
                     <th>Last Name</th>
                     <th>Age</th>
                     <th>Email</th>
-
+                    <th>Role</th>
                 </tr>
                 <title>use</title>
             </head>
@@ -29,14 +29,32 @@
                 <td th:text="${user.userLastName}"></td>
                 <td th:text="${user.userAge}"></td>
                 <td th:text="${user.userEmail}"></td>
+                <td th:each="role : ${user.getRoles()}">
+                    <a th:text="${role.getRoleName()}">user</a>
+                </td>
+                <td>
+                    <form th:method="GET" th:action="@{/admin/user-update/{id}(id=${user.id})}">
+                        <input type="submit" value="edit">
+                    </form>
+                </td>
 
-                <td><a th:href="@{user-update/{id}(id=${user.id})}">Edit</a></td>
-                <td><a th:href="@{user-delete/{id}(id=${user.id})}">Delete</a></td>
+                <td>
+                    <form th:method="DELETE" th:action="@{/admin/user-delete/{id}(id=${user.id})}">
+                        <input type="submit" value="delete">
+                    </form>
+                </td>
+
             </tr>
             </tbody>
         </table>
     </div>
-        <p><a href="/user-create">Create user</a></p>
+        <p><a href="/admin/user-create">Create user</a></p>
 </div>
+
+<form name="logoutForm" th:action="@{/logout}" method="post" th:hidden="false">
+    <input type="submit" value="Logout"/>
+</form>
+
 </body>
 </html>
+

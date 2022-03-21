@@ -50,13 +50,16 @@ public class User implements UserDetails {
     public User() {
     }
 
-
-    public User(String userName, String userLastName, int userAge, String userEmail, String userPassword) {
+        public User(String userName, String userLastName, int userAge, String userEmail, String userPassword) {
         this.userName = userName;
         this.userLastName = userLastName;
         this.userAge = userAge;
         this.userEmail = userEmail;
         this.userPassword = userPassword;
+    }
+
+    public boolean hasRole (Role role) {
+        return roles.contains(role);
     }
 
     ////
@@ -153,6 +156,9 @@ public class User implements UserDetails {
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
     }
+
+
+
 
 
 }

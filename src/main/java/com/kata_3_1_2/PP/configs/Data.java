@@ -9,6 +9,7 @@ import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.Set;
 
 @Component
@@ -40,8 +41,12 @@ public class Data {
         User userAlex = new User("alex", "alexeev", 10,"iaaa@mail.ru", "123");
         userAlex.setUserPassword(passwordEncoder.encode("123"));
 
+        /*User userBob = new User("bob", "bobov", 10,"iaaa@mail.ru", "123");
+        userBob.setUserPassword(passwordEncoder.encode("123"));
+*/
 
         userService.addUser(userIvan, new String[]{"ROLE_ADMIN"});
         userService.addUser(userAlex, new String[] {"ROLE_USER"});
+        //userService.addUser(userBob, new String[] {"ROLE_USER"});
     }
 }
