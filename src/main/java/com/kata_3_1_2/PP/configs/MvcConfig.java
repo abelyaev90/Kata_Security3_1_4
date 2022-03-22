@@ -10,9 +10,3 @@ public class MvcConfig implements WebMvcConfigurer {
         registry.addViewController("/login").setViewName("login");
     }
 }
-
-
-    //от Марата для теста:
-// Для инициализации тестовых юзеров создай отдельный бин,
-//   а в нём - один @PostConstruct-метод, где будешь на Role-сервисе создавать и лить в БД все нужные роли,
-//   а на User-сервисе создавать юзеров, сетить им имеющиеся роли и лить юзеров в БД

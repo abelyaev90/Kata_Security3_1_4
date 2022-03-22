@@ -28,11 +28,14 @@
     <br/>
 
     <p>
-        <label for="roles">Выберите роль:</label>
-        <select id="roles" name="roles">
-            <option value="ROLE_ADMIN">ROLE_ADMIN</option>
-            <option value="ROLE_USER">ROLE_USER</option>
-        </select>
+        <label>Roles:
+            <input type="checkbox" name="roleList"
+                   th:each="role : ${roleList}"
+                   th:text="${role.roleName}"
+                   th:value="${role.roleName}"
+                   th:field="*{roles}"
+            />
+        </label>
     </p>
 
     <br/>

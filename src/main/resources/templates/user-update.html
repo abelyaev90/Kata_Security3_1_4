@@ -5,7 +5,7 @@
     <title>Update user</title>
 </head>
 <body>
-<form action="#" th:action="@{/user-update}" th:object="${user}" method="post">
+<form action="#" th:action="@{/admin/user-update/{id}(id=${user.getId})}" th:object="${user}" th:method="PATCH">
     <label for="id">ID</label>
     <input readonly type="number" th:field="*{id}" id="id" placeholder="ID">
     <br/>
@@ -31,18 +31,20 @@
     <br/>
     <br/>
     <p>
-        <label for="roles">Role</label>
-        <select id="roles" name="roles">
-            <option value="ROLE_ADMIN">ROLE_ADMIN</option>
-            <option value="ROLE_USER">ROLE_USER</option>
-        </select>
+        <label>Roles:
+            <input type="checkbox" name="roleList"
+                   th:each="role : ${roleList}"
+                   th:text="${role.roleName}"
+                   th:value="${role.roleName}"
+                   th:field="*{roles}"
+            />
+        </label>
     </p>
 
     <br/>
     <br/>
 
         <input type="submit"  value="Update User" >
-
 
 </form>
 </tr>

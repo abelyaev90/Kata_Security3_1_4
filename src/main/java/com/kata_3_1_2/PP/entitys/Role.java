@@ -4,7 +4,6 @@ import org.springframework.security.core.GrantedAuthority;
 
 import javax.persistence.*;
 
-//возможно здесь также нужно бужет создать связь ManyToMany
 
 @Entity
 @Table(name = "roletable")

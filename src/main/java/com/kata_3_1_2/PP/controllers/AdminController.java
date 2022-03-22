@@ -4,6 +4,7 @@ package com.kata_3_1_2.PP.controllers;
 import com.kata_3_1_2.PP.entitys.User;
 import com.kata_3_1_2.PP.service.RoleService;
 import com.kata_3_1_2.PP.service.UserService;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -16,9 +17,13 @@ import java.util.List;
 public class AdminController {
 
     private final UserService userService;
+    private final RoleService roleService;
+    private final PasswordEncoder passwordEncoder;
 
-    public AdminController(UserService userService, RoleService roleService) {
+    public AdminController(UserService userService, RoleService roleService, PasswordEncoder passwordEncoder) {
         this.userService = userService;
+        this.roleService = roleService;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @GetMapping()
@@ -33,24 +38,28 @@ public class AdminController {
         return "users-list";
     }
 
-
-//*****************************************************************
     @GetMapping("/user-create")
     public String createUserForm(ModelMap modelMap) {
         modelMap.addAttribute("user", new User());
+        modelMap.addAttribute("roleList", roleService.getAll());
         return "user-create";
     }
 
-    //изменить
     @PostMapping("users")
-    public String createUser(@ModelAttribute("user") User user, String[] roles) {
-        userService.addUser(user, roles);
-        return "redirect:/users";
+    public String createUser(@RequestParam("userName") String name, @RequestParam("userLastName") String lastname,
+                             @RequestParam("userAge") int age, @RequestParam("userEmail") String email,
+                             @RequestParam("userPassword") String password, @RequestParam("roles") String[] roles) {
+    User user = new User();
+    user.setUserName(name);
+    user.setUserLastName(lastname);
+    user.setUserAge(age);
+    user.setUserEmail(email);
+    user.setUserPassword(passwordEncoder.encode(password));
+    user.setRoles(roleService.getByName(roles));
+    userService.addUser(user);
+
+        return "redirect:/admin/users";
     }
-
-
-    //*****************************************************************
-
 
 
     @DeleteMapping("/user-delete/{id}")
@@ -61,15 +70,23 @@ public class AdminController {
 
     @GetMapping("/user-update/{id}")
     public String updateUserForm(@PathVariable("id") Long id, Model model) {
-        User user = userService.getUserById(id);
-        model.addAttribute("user", user);
+        model.addAttribute("user", userService.getUserById(id));
+        model.addAttribute("roleList", roleService.getAll());
         return "/user-update";
     }
 
-    //изменить как create
-    @PostMapping("/user-update")
-    public String updateUser(User user, String[] roles) {
-        userService.updateUser(user, roles);
-        return "redirect:/users";
+    @PatchMapping("/user-update/{id}")
+    public String updateUser(@RequestParam("userName") String name, @RequestParam("userLastName") String lastname,
+                             @RequestParam("userAge") int age, @RequestParam("userEmail") String email,
+                             @RequestParam("userPassword") String password, @RequestParam("roles") String[] roles, @PathVariable("id") Long id) {
+        User userToBeUpdated = userService.getUserById(id);
+        userToBeUpdated.setUserName(name);
+        userToBeUpdated.setUserLastName(lastname);
+        userToBeUpdated.setUserAge(age);
+        userToBeUpdated.setUserEmail(email);
+        userToBeUpdated.setUserPassword(passwordEncoder.encode(password));
+        userToBeUpdated.setRoles(roleService.getByName(roles));
+        userService.updateUser(userToBeUpdated);
+        return "redirect:/admin/users";
     }
 }
