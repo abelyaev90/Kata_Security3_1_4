@@ -33,7 +33,7 @@ public class User implements UserDetails {
     @Column(name = "userpassword")
     private String userPassword;
 
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "user_role",
             joinColumns = @JoinColumn(name = "user_id"),
@@ -58,8 +58,13 @@ public class User implements UserDetails {
         this.userPassword = userPassword;
     }
 
-    public boolean hasRole (Role role) {
-        return roles.contains(role);
+    public User(String userName, String userLastName, int userAge, String userEmail, String userPassword, Set<Role> roles) {
+        this.userName = userName;
+        this.userLastName = userLastName;
+        this.userAge = userAge;
+        this.userEmail = userEmail;
+        this.userPassword = userPassword;
+        this.roles = roles;
     }
 
     ////

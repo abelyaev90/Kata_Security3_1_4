@@ -26,6 +26,12 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public void addUser(User user) {
+        userDao.addUser(user);
+    }
+
+
+    @Override
     public void removeUser(Long id) {
         userDao.removeUser(id);
     }
@@ -40,11 +46,6 @@ public class UserServiceImpl implements UserService {
         return userDao.listUsers();
     }
 
-    @Override
-    public void updateUser(User user, String[] roles) {
-        user.setRoles(roleService.getByName(roles));
-        userDao.addUser(user);
-    }
 
     @Override
     public User getByName(String name) {

@@ -31,6 +31,7 @@ public class Data {
         Role roleAdmin = new Role(1L,"ROLE_ADMIN");
         Role roleUser = new Role(2L,"ROLE_USER");
 
+
         roleService.addRole(roleAdmin);
         roleService.addRole(roleUser);
 
@@ -41,12 +42,8 @@ public class Data {
         User userAlex = new User("alex", "alexeev", 10,"iaaa@mail.ru", "123");
         userAlex.setUserPassword(passwordEncoder.encode("123"));
 
-        /*User userBob = new User("bob", "bobov", 10,"iaaa@mail.ru", "123");
-        userBob.setUserPassword(passwordEncoder.encode("123"));
-*/
 
         userService.addUser(userIvan, new String[]{"ROLE_ADMIN"});
         userService.addUser(userAlex, new String[] {"ROLE_USER"});
-        //userService.addUser(userBob, new String[] {"ROLE_USER"});
     }
 }
