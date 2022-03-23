@@ -20,9 +20,15 @@ public class AdminController {
     private final RoleService roleService;
     private final PasswordEncoder passwordEncoder;
 
+<<<<<<< HEAD
     public AdminController(UserService userService, RoleService roleService, PasswordEncoder passwordEncoder) {
         this.userService = userService;
         this.roleService = roleService;
+=======
+    public AdminController(UserService userService, RoleService roleService, RoleService roleService1, PasswordEncoder passwordEncoder) {
+        this.userService = userService;
+        this.roleService = roleService1;
+>>>>>>> f053c696db8b3f6009e3eb0af5db18781e42d03f
         this.passwordEncoder = passwordEncoder;
     }
 
@@ -86,7 +92,10 @@ public class AdminController {
         userToBeUpdated.setUserEmail(email);
         userToBeUpdated.setUserPassword(passwordEncoder.encode(password));
         userToBeUpdated.setRoles(roleService.getByName(roles));
+<<<<<<< HEAD
         userService.updateUser(userToBeUpdated);
+=======
+>>>>>>> f053c696db8b3f6009e3eb0af5db18781e42d03f
         return "redirect:/admin/users";
     }
 }
