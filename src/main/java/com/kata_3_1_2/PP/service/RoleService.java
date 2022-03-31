@@ -11,4 +11,5 @@ public interface RoleService {
     Set<Role> getByName(String[] roleName);
     void addRole(Role role);
     void deleteById(Long id);
+    Set<Role> getByNameStr(String nameRole);
 }

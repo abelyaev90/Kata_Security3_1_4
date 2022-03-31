@@ -35,15 +35,19 @@ public class Data {
         roleService.addRole(roleAdmin);
         roleService.addRole(roleUser);
 
-        User userIvan = new User("ivan","ivanov", 20, "ivan@mail.ru", "123");
+        User userIvan = new User("ivan","ivanov", "20", "ivan@mail.ru", "123");
         userIvan.setUserPassword(passwordEncoder.encode("123"));
 
 
-        User userAlex = new User("alex", "alexeev", 10,"iaaa@mail.ru", "123");
+        User userAlex = new User("alex", "alexeev", "10","iaaa@mail.ru", "123");
         userAlex.setUserPassword(passwordEncoder.encode("123"));
 
 
+        User userTom = new User("tom", "tomov", "11","iaaa@mail.ru", "123");
+        userAlex.setUserPassword(passwordEncoder.encode("123"));
+
         userService.addUser(userIvan, new String[]{"ROLE_ADMIN"});
         userService.addUser(userAlex, new String[] {"ROLE_USER"});
+        userService.addUser(userTom, new String[] {"ROLE_USER"});
     }
 }

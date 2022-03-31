@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import java.security.Principal;
 
 @Controller
-@RequestMapping("/user")
+@RequestMapping()
 public class UserController {
 
     private final UserService userService;
@@ -19,15 +19,15 @@ public class UserController {
         this.userService = userService;
     }
 
-    @GetMapping("/show")
+    @GetMapping("/user")
     public String showUser(Principal principal, ModelMap modelMap) {
         User userBD = userService.getByName(principal.getName());
         modelMap.addAttribute("user", userBD);
         return "show";
     }
 
-    @GetMapping()
+/*    @GetMapping()
     public String userPrint() {
-        return "user";
-    }
+        return "user/show";
+    }*/
 }

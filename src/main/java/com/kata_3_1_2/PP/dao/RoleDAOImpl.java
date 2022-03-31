@@ -35,6 +35,13 @@ public class RoleDAOImpl implements RoleDao{
     }
 
     @Override
+    public Set<Role> getByNameStr(String nameRole) {
+        return em.createQuery("select r from Role r WHERE r.roleName in (:name)", Role.class).
+                setParameter("name", Arrays.asList(nameRole)).getResultList().stream().collect(Collectors.toSet());
+    }
+
+
+    @Override
     public void addRole(Role role) {
         em.merge(role);
     }
@@ -45,5 +52,10 @@ public class RoleDAOImpl implements RoleDao{
         if (role != null) {
             em.remove(role);
         }
+    }
+
+    @Override
+    public Role findByName(String name) {
+        return null;
     }
 }

@@ -25,7 +25,7 @@ public class User implements UserDetails {
     private String userLastName;
 
     @Column(name = "userage")
-    private int userAge;
+    private String userAge;
 
     @Column(name = "useremail")
     private String userEmail;
@@ -50,7 +50,7 @@ public class User implements UserDetails {
     public User() {
     }
 
-        public User(String userName, String userLastName, int userAge, String userEmail, String userPassword) {
+        public User(String userName, String userLastName, String userAge, String userEmail, String userPassword) {
         this.userName = userName;
         this.userLastName = userLastName;
         this.userAge = userAge;
@@ -58,13 +58,23 @@ public class User implements UserDetails {
         this.userPassword = userPassword;
     }
 
-    public User(String userName, String userLastName, int userAge, String userEmail, String userPassword, Set<Role> roles) {
+    public User(String userName, String userLastName, String userAge, String userEmail, String userPassword, Set<Role> roles) {
         this.userName = userName;
         this.userLastName = userLastName;
         this.userAge = userAge;
         this.userEmail = userEmail;
         this.userPassword = userPassword;
         this.roles = roles;
+    }
+
+    public String getRolesString() {
+        StringBuilder str = new StringBuilder();
+        for (Role role : roles) {
+            str.append(role.getRoleName());
+            str.append(" ");
+        }
+        return (str.length() > 0) ? str.deleteCharAt(str.length() - 1).toString()
+                : "";
     }
 
     ////
@@ -146,11 +156,11 @@ public class User implements UserDetails {
         this.userLastName = userLastName;
     }
 
-    public int getUserAge() {
+    public String getUserAge() {
         return userAge;
     }
 
-    public void setUserAge(int userAge) {
+    public void setUserAge(String userAge) {
         this.userAge = userAge;
     }
 

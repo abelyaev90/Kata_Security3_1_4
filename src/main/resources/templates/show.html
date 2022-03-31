@@ -4,21 +4,90 @@
       xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+
     <title>Пользователь</title>
 </head>
 <body>
-<p th:text="${'Name: ' + user.getUserName()}">VALUE</p>
-<p th:text="${'LastName: ' + user.getUserLastName()}">VALUE</p>
-<p th:text="${'Email: ' + user.getUserEmail()}">VALUE</p>
-<p th:text="${'Id: ' + user.getId()}">VALUE</p>
 
-<br/>
-<div th:each="role : ${user.getRoles()}">
-    <a th:text="${role.getRoleName()}">user</a>
+<header class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
+    <a class="navbar-brand col-md-3" href="#">
+        <b th:utext="${user.getUserEmail()}"></b>
+        <lable>with roles:</lable>
+        <lable th:text="${user.getRolesString()}"></lable>
+    </a>
+    <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-bs-toggle="collapse"
+            data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false"
+            aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="navbar-nav">
+        <div class="nav-item text-nowrap">
+            <form class="form-signin " th:method="POST" th:action="@{/logout}">
+                <button class="nav-link px-3 bg-dark" type="submit">Logout</button>
+            </form>
+        </div>
+    </div>
+</header>
+
+<div class="row">
+    <nav class="col-md-2 d-none d-md-block sidebar">
+        <div class="sidebar-sticky">
+            <ul class="nav flex-column">
+                <li class="nav-item">
+                    <a class="nav-link active bg-primary text-white" href="#">
+                        <span data-feather="home"></span>
+                        Admin <span class="sr-only">(current)</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/user">
+                        <span data-feather="file"></span>
+                        User
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="col-9">
+<h2>User information-page</h2>
+<h4>About user</h4>
+<table class="table table-striped">
+    <thead>
+    <tr>
+        <th scope="col">ID</th>
+        <th scope="col">First Name</th>
+        <th scope="col">Last Name</th>
+        <th scope="col">Age</th>
+        <th scope="col">Email</th>
+        <th scope="col">Role</th>
+
+    </tr>
+    </thead>
+    <tbody>
+
+        <td><span th:text="${user.id}">ID</span></td>
+        <td><span th:text="${user.userName}">First Name</span></td>
+        <td><span th:text="${user.userLastName}">Last Name</span></td>
+        <td><span th:text="${user.userAge}">Age</span></td>
+        <td><span th:text="${user.userEmail}">Email</span></td>
+        <td><div th:each="role : ${user.getRoles()}">
+            <a th:text="${role.getRoleName()}">user</a>
+        </div></td>
+    </tbody>
+</table>
+    </div>
 </div>
 
-<form name="logoutForm" th:action="@{/logout}" method="post" th:hidden="false">
-    <input type="submit" value="Logout"/>
-</form>
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+
 </body>
 </html>
