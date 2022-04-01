@@ -15,6 +15,5 @@ public interface RoleDao {
     void addRole(Role role);
     void deleteById(Long id);
     Role findByName(String name);
-    Set<Role> getByNameStr(String nameRole);
 }
 

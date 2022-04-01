@@ -26,8 +26,4 @@ public class UserController {
         return "show";
     }
 
-/*    @GetMapping()
-    public String userPrint() {
-        return "user/show";
-    }*/
 }

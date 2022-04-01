@@ -31,10 +31,9 @@ public class AdminController {
     @GetMapping()
     public String printUsers(Principal principal, Model model) {
         model.addAttribute("users",userService.listUsers());
+        model.addAttribute("roles", roleService.getAll());
         model.addAttribute("user", new User());
         model.addAttribute("currentUser", userService.getByName(principal.getName()));
-        /*List<User> users = userService.listUsers();
-        model.addAttribute("users", users);*/
         return "users-list";
     }
 
@@ -44,42 +43,20 @@ public class AdminController {
         modelMap.addAttribute("roleList", roleService.getAll());
         return "user-create";
     }
-//метод ниже убрать, он заменен на  public String addUser(@ModelAttribute("user")User user,
-//                          @RequestParam("roles") String[] roles)
-/*    @PostMapping("users")
-    public String createUser(@RequestParam("userName") String name, @RequestParam("userLastName") String lastname,
-                             @RequestParam("userAge") int age, @RequestParam("userEmail") String email,
-                             @RequestParam("userPassword") String password, @RequestParam("roles") String[] roles) {
-    User user = new User();
-    user.setUserName(name);
-    user.setUserLastName(lastname);
-    user.setUserAge(age);
-    user.setUserEmail(email);
-    user.setUserPassword(passwordEncoder.encode(password));
-    user.setRoles(roleService.getByName(roles));
-    userService.addUser(user);
-
-        return "redirect:/admin";
-    }*/
-
-    ///---------
 
     @PostMapping()
     public String addUser(@ModelAttribute("user")User user,
-                          @RequestParam("roles") String[] roles){
+                          @RequestParam("newRoles") String[] roles){
         user.setUserPassword(passwordEncoder.encode(user.getPassword()));
         user.setRoles(roleService.getByName(roles));
         userService.addUser(user);
         return "redirect:/admin";
     }
 
-    ////------
-
-
-    @DeleteMapping("/user-delete/{id}")
+    @DeleteMapping("/{id}")
     public String deleteUser(@PathVariable("id") Long id) {
         userService.removeUser(id);
-        return "redirect:/admin/users";
+        return "redirect:/admin";
     }
 
     @GetMapping("/user-update/{id}")
@@ -89,35 +66,10 @@ public class AdminController {
         return "/user-update";
     }
 
-    //метод ниже удалить, заменен на public String editUser(@ModelAttribute("user") User user,
-    //                           @PathVariable ("id")long id, @RequestParam("roles") String[] roles)
-/*
-    @PatchMapping("/{id}")
-    public String updateUser(@RequestParam("userName") String name, @RequestParam("userLastName") String lastname,
-                             @RequestParam("userAge") int age, @RequestParam("userEmail") String email,
-                             @RequestParam("userPassword") String password, @RequestParam("roles") String[] roles, @PathVariable("id") Long id) {
-        User userToBeUpdated = userService.getUserById(id);
-        userToBeUpdated.setUserName(name);
-        userToBeUpdated.setUserLastName(lastname);
-        userToBeUpdated.setUserAge(age);
-        userToBeUpdated.setUserEmail(email);
-        userToBeUpdated.setUserPassword(passwordEncoder.encode(password));
-        userToBeUpdated.setRoles(roleService.getByName(roles));
-        userService.updateUser(userToBeUpdated);
-
-        return "redirect:/admin";
-    }
-*/
-
-    //----------
 
     @PutMapping("/{id}")
     public String editUser(@ModelAttribute("user") User user,
-                           @PathVariable ("id") long id, @RequestParam("roles") String[] roles){
-
-  /*      for (String nameRole:roles) {
-            user.setRoles(roleService.getByNameStr(nameRole));
-        }*/
+                           @PathVariable ("id") long id, @RequestParam("userRoles") String[] roles){
 
         if(roles!= null){
 
@@ -133,6 +85,4 @@ public class AdminController {
         userService.updateUser(id, user);
         return "redirect:/admin";
     }
-
-    //-----
 }

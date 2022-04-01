@@ -38,7 +38,7 @@
     });
 });*/
 
-    $(document).ready(function () {
+/*    $(document).ready(function () {
     $('.table .eBtn').on('click', function (event) {
         event.preventDefault();
         console.log('Скрипт сработал')
@@ -71,4 +71,4 @@
 });
     $('#deleteModal').modal('show');
 });
-});
+});*/
