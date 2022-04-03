@@ -69,7 +69,7 @@ public class AdminController {
 
     @PutMapping("/{id}")
     public String editUser(@ModelAttribute("user") User user,
-                           @PathVariable ("id") long id, @RequestParam("userRoles") String[] roles){
+                           @RequestParam("userRoles") String[] roles){
 
         if(roles!= null){
 
@@ -82,7 +82,7 @@ public class AdminController {
         } else {
             user.setUserPassword(passwordEncoder.encode(user.getPassword()));
         }
-        userService.updateUser(id, user);
+        userService.updateUser(user);
         return "redirect:/admin";
     }
 }

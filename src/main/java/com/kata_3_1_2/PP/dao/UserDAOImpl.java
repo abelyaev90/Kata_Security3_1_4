@@ -39,7 +39,7 @@ public class UserDAOImpl implements UserDao{
     }
 
     @Override
-    public void updateUser(Long id, User userUpdater) {
+    public void updateUser(User userUpdater) {
         em.merge(userUpdater);
     }
 
