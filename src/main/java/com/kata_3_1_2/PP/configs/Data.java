@@ -25,12 +25,10 @@ public class Data {
         this.passwordEncoder = passwordEncoder;
     }
 
-
     @PostConstruct
     void init() {
         Role roleAdmin = new Role(1L,"ROLE_ADMIN");
         Role roleUser = new Role(2L,"ROLE_USER");
-
 
         roleService.addRole(roleAdmin);
         roleService.addRole(roleUser);
@@ -38,10 +36,8 @@ public class Data {
         User userIvan = new User("ivan","ivanov", "20", "ivan@mail.ru", "123");
         userIvan.setUserPassword(passwordEncoder.encode("123"));
 
-
         User userAlex = new User("alex", "alexeev", "10","iaaa@mail.ru", "123");
         userAlex.setUserPassword(passwordEncoder.encode("123"));
-
 
         User userTom = new User("tom", "tomov", "11","iaaa@mail.ru", "123");
         userAlex.setUserPassword(passwordEncoder.encode("123"));

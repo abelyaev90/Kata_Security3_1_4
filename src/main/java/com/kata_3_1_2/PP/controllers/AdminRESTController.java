@@ -8,12 +8,14 @@ import com.kata_3_1_2.PP.service.UserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/admin")
 public class AdminRESTController {
 
     private final UserService userService;
@@ -27,10 +29,18 @@ public class AdminRESTController {
     }
 
     @GetMapping("/users")
-    public List<User> printUsers() {
+    public ResponseEntity<List<User>> printUsers() {
         List<User> allUsers = userService.listUsers();
-        return allUsers;
+        return new ResponseEntity<>(allUsers, HttpStatus.OK);
     }
+/*@GetMapping("/users")
+public List<User> printUsers(Principal principal, Model model) {
+    model.addAttribute("users",userService.listUsers());
+    model.addAttribute("roles", roleService.getAll());
+    model.addAttribute("user", new User());
+    model.addAttribute("currentUser", userService.getByName(principal.getName()));
+    return "users-list";
+}*/
 
     @GetMapping("/users/{id}")
     public User getUser(@PathVariable Long id) {
