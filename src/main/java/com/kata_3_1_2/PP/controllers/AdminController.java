@@ -30,9 +30,9 @@ public class AdminController {
 
     @GetMapping()
     public String printUsers(Principal principal, Model model) {
-        model.addAttribute("users",userService.listUsers());
+    /*    model.addAttribute("users",userService.listUsers());
         model.addAttribute("roles", roleService.getAll());
-        model.addAttribute("user", new User());
+        model.addAttribute("user", new User());*/
         model.addAttribute("currentUser", userService.getByName(principal.getName()));
         return "users-list";
     }

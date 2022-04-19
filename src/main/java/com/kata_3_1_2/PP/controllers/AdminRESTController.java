@@ -1,5 +1,6 @@
 package com.kata_3_1_2.PP.controllers;
 
+import com.kata_3_1_2.PP.entitys.Role;
 import com.kata_3_1_2.PP.entitys.User;
 import com.kata_3_1_2.PP.exception_handling.NoSuchUserException;
 import com.kata_3_1_2.PP.exception_handling.UserIncorrectData;
@@ -12,7 +13,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @RestController
 @RequestMapping("/api/admin")
@@ -53,17 +56,55 @@ public List<User> printUsers(Principal principal, Model model) {
 
     @PostMapping("/users")
     public User addNewUser(@RequestBody User user) {
+        user.setUserPassword(passwordEncoder.encode(user.getPassword()));
         userService.addUser(user);
         return user;
     }
+
+    //----от Дениса:
+
+
+/*    @PostMapping("/users")
+    public ResponseEntity<Void> addNewUser(@RequestBody User user) {
+        userService.addUser(user);
+        return new ResponseEntity<Void>(HttpStatus.OK);
+    }*/
+
+    @GetMapping("/allroles")
+    public ResponseEntity<List<Role>> getAllRoles() {
+        return new ResponseEntity<>(roleService.getAll(), HttpStatus.OK);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteUser(@PathVariable Long id) {
+        userService.removeUser(id);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    //----
+
+    //---код Льва
+/*    @PostMapping("/users")
+    public User addUser(@RequestBody User user) {
+        Set<Role> rolesSet = new HashSet<>();
+        for(Role r: user.getRoles()){
+            rolesSet.add(roleService.getByName(r.getName()));
+        }
+        user.setRoles(rolesSet);
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        userService.add(user);
+        return user;
+    }*/
+
+    //------
 
     @PutMapping("/users")
     public User editUser(@RequestBody User user) {
         userService.updateUser(user);
         return user;
     }
-
-    @DeleteMapping("/users/{id}")
+/*
+    @DeleteMapping("/{id}")
     public String deleteUser(@PathVariable("id") Long id) {
         User user = userService.getUserById(id);
         if (user == null) {
@@ -71,5 +112,5 @@ public List<User> printUsers(Principal principal, Model model) {
         }
         userService.removeUser(id);
         return "User with id " + id + " was deleted.";
-    }
+    }*/
 }

@@ -42,7 +42,7 @@ public class Data {
         User userTom = new User("tom", "tomov", "11","iaaa@mail.ru", "123");
         userAlex.setUserPassword(passwordEncoder.encode("123"));
 
-        userService.addUser(userIvan, new String[]{"ROLE_ADMIN"});
+        userService.addUser(userIvan, new String[]{"ROLE_ADMIN", "ROLE_USER"});
         userService.addUser(userAlex, new String[] {"ROLE_USER"});
         userService.addUser(userTom, new String[] {"ROLE_USER"});
     }
